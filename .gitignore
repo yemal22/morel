@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.so
+*.egg-info/
+.Python
+
+# Environnement virtuel
+.env
+.venv/
+venv/
+env/
+
+# Django
+*.sqlite3
+db.sqlite3
+*.log
+*.pot
+*.pyc
+
+# Secrets
+.env.*
+secrets.json
+
+# Django migrations cache
+**/migrations/__pycache__/
+**/migrations/*.pyc
+
+# IDEs / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# JetBrains
+*.iml
+out/
