@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome | Yémalin{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <section class="hero-horizontal fade-in">
+        <div class="hero-image">
+            <img src="{% static 'images/me_1.png' %}" alt="Yémalin KPAVODE" class="profile-left">
+        </div>
+        <div class="hero-text">
+            <h2>Hello 👋, I'm Yémalin</h2>
+            <p>
+                I'm a Junior Data Scientist from Benin, driven by a passion for applying Artificial Intelligence
+                and Big Data to solve real-world problems — especially those relevant to African communities.
+            </p>
+            <p>
+                With a solid academic background in both Mathematics and Information Technologies, I enjoy building
+                innovative tools that enhance public health, food security, and digital transformation across Africa.
+                I’ve worked on projects involving computer vision, image captioning, and multimodal search systems.
+            </p>
+            <p>
+                I believe that technology should not just be powerful — it should be purposeful. That’s why my work
+                always focuses on impact, culture, and accessibility.
+            </p>
+        </div>
+    </section>
+
+    <section class="section fade-in">
+        <h3>💡 What I'm Working On</h3>
+        <ul>
+            <li>Developing <strong>Isheero</strong> — an automatic annotation system for African food and fashion images</li>
+            <li>Building <strong>SmartFinder</strong> — a multimodal search engine using text, image, and voice queries</li>
+            <li>Fine-tuning deep learning models on African datasets using <code>BLIP</code> and <code>FastAPI</code></li>
+        </ul>
+    </section>
+
+    <section class="section">
+        <h3>📍 My Mission</h3>
+        <p>
+            To empower African solutions through intelligent technologies — bridging the gap between machine learning
+            research and local societal needs. I envision AI systems that speak our languages, understand our foods, and
+            see our cultures.
+        </p>
+    </section>
+
+    <p class="signature-text">“Coding for Africa, dreaming globally.”</p>
+{% endblock %}

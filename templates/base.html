@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Morel Yémalin {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+</head>
+<body>
+{% include 'parts/header.html' %}
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+{% include 'parts/footer.html' %}
+<script>
+    const burger = document.getElementById('burger-btn');
+    const nav = document.getElementById('main-nav');
+
+    burger.addEventListener('click', () => {
+        nav.classList.toggle('show');
+        burger.classList.toggle("active");
+    });
+
+    // Optional: close on link click (mobile UX)
+    document.querySelectorAll('#main-nav a').forEach(link =>
+        link.addEventListener('click', () => {
+            nav.classList.remove('show');
+        })
+    );
+
+    // === Dark Mode Toggle ===
+    const themeToggle = document.getElementById("theme-toggle");
+    const html = document.documentElement;
+
+    function setTheme(mode) {
+        html.setAttribute('data-theme', mode);
+        localStorage.setItem('theme', mode);
+    }
+
+    themeToggle.addEventListener("click", () => {
+        const current = html.getAttribute('data-theme') || 'light';
+        setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Load saved theme
+    const saved = localStorage.getItem('theme');
+    if (saved) setTheme(saved);
+</script>
+
+
+</body>
+</html>

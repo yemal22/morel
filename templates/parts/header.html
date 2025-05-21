@@ -1,0 +1,57 @@
+<header class="site-header">
+    <div class="header-inner">
+        <!-- LOGO with vector icon -->
+        <div class="logo">
+
+            <div class="logo-mark">
+                <svg viewBox="0 0 100 100" class="logo-svg" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+                    <!-- Rounded tech border (hexagon with slight curves) -->
+                    <path d="M50,5
+                             L85,25
+                             Q90,50 85,75
+                             L50,95
+                             L15,75
+                             Q10,50 15,25
+                             Z" stroke-width="3" />
+
+                    <!-- Brain-style tech lines (stylized neurons/connections) -->
+                    <path d="M40,35 Q35,50 40,65" stroke-width="1" />
+                    <path d="M60,35 Q65,50 60,65" stroke-width="1" />
+                    <circle cx="40" cy="50" r="1.5" fill="currentColor" />
+                    <circle cx="60" cy="50" r="1.5" fill="currentColor" />
+                    <line x1="40" y1="50" x2="60" y2="50" stroke-width="0.5" />
+
+                    <!-- Centered Monogram -->
+                    <text x="50%" y="55%" text-anchor="middle" font-size="13" font-family="monospace" fill="currentColor" letter-spacing="3">
+                        KEMY
+                    </text>
+                </svg>
+            </div>
+
+
+            <div class="logo-text">
+                <h1><span class="logo-name">Yémalin</span> <span class="logo-last">KPAVODE</span></h1>
+                <p class="subtitle">Junior Data Scientist • AI for Africa</p>
+            </div>
+        </div>
+
+        <!-- Burger -->
+        <button class="burger" id="burger-btn" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+        </button>
+
+        <!-- Nav -->
+        <nav class="main-nav" id="main-nav">
+            <a href="{% url 'home' %}"><i class="fas fa-home icon"></i> Home</a>
+            <a href="#"><i class="fas fa-code icon"></i> Projects</a>
+            <a href="#"><i class="fas fa-briefcase icon"></i> Experience</a>
+            <a href="#"><i class="fas fa-tools icon"></i> Skills</a>
+            <a href="#"><i class="fas fa-graduation-cap icon"></i> Education</a>
+            <a href="#"><i class="fas fa-certificate icon"></i> Certifications</a>
+            <a href="#"><i class="fas fa-envelope icon"></i> Contact</a>
+        </nav>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+</header>
