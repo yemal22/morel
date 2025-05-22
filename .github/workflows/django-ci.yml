@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    environment: env
     services:
       postgres:
         image: postgres:13
@@ -34,14 +34,6 @@ jobs:
       DEBUG: FALSE
 
     steps:
-      - name: Check if DB_PASSWORD is defined
-        run: |
-          if [ -z "${{ secrets.DB_PASSWORD }}" ]; then
-            echo "❌ DB_PASSWORD is not defined"
-            exit 1
-          else
-            echo "✅ DB_PASSWORD is defined"
-          fi
       - name: Checkout code
         uses: actions/checkout@v3
 
