@@ -12,7 +12,7 @@ jobs:
     environment: env
     services:
       postgres:
-        image: postgres:13
+        image: postgres:14
         env:
           POSTGRES_DB: ${{ secrets.DB_NAME }}
           POSTGRES_USER: ${{ secrets.DB_USER }}
