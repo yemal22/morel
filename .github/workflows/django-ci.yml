@@ -18,11 +18,11 @@ jobs:
           POSTGRES_USER: ${{ secrets.DB_USER }}
           POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
         ports: ['5432:5432']
-        # options: >-
-        #   --healthy-cmd pg_isready
-        #   --healthy-interval 10s
-        #   --healthy-timeout 5s
-        #   --healthy-retries 5
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     env:
       DB_NAME: ${{ secrets.DB_NAME }}
@@ -40,7 +40,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.10'
 
       - name: Install dependencies
         run: |
@@ -50,6 +50,8 @@ jobs:
       - name: Run migrations
         run: python manage.py migrate
 
-      - name: Run tests
-        run:  python manage.py test portfolio.tests.test_model portfolio.tests.test_view
+      - name: Run tests with coverage
+        run:  coverage run manage.py test portfolio.tests.test_model portfolio.tests.test_view
 
+      - name: Upload coverage to Codecov
+        run: codecov/codecov-action@v3
