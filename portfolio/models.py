@@ -103,6 +103,9 @@ class Skill(models.Model):
     name = models.CharField(max_length=100)
     category = models.ForeignKey(SkillCategory, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 class LanguageProficiency(models.Model):
     """
     Stores language skills and the level of fluency.
@@ -127,6 +130,9 @@ class Education(models.Model):
     end_date = models.DateField()
     location = models.CharField(max_length=255)
     description = models.TextField()
+
+    def __str__(self):
+        return f'{self.degree} at {self.institution}'
 
 class Experience(models.Model):
     """
