@@ -18,11 +18,11 @@ jobs:
           POSTGRES_USER: ${{ secrets.DB_USER }}
           POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
         ports: ['5432:5432']
-        options: >-
-          --healthy-cmd pg_isready
-          --healthy-interval 10s
-          --healthy-timeout 5s
-          --healthy-retries 5
+        # options: >-
+        #   --healthy-cmd pg_isready
+        #   --healthy-interval 10s
+        #   --healthy-timeout 5s
+        #   --healthy-retries 5
 
     env:
       DB_NAME: ${{ secrets.DB_NAME }}
