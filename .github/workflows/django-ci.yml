@@ -54,6 +54,6 @@ jobs:
         run:  coverage run manage.py test portfolio.tests.test_model portfolio.tests.test_view
 
       - name: Upload coverage to Codecov
-        run: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
