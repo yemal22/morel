@@ -81,6 +81,9 @@ jobs:
         run: |
           docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
 
+      - name: List Docker images
+        run: docker images
+
   deploy:
     name: 🚀 Deploy to Heroku
     runs-on: ubuntu-latest
