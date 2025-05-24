@@ -88,10 +88,19 @@ jobs:
     needs: build
 
     steps:
-      - name: Release Docker image to Heroku
-        run: |
-          echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=${{ secrets.HEROKU_EMAIL }} --password-stdin registry.heroku.com
-          docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
-          heroku container:release web --app ${{ secrets.HEROKU_APP_NAME }}
+      - name: 🔄 Checkout code
+        uses: actions/checkout@v3
 
-        
+      - name: 🔐 Login to Heroku Container Registry
+        run: |
+          echo "${{ secrets.HEROKU_API_KEY }}" | docker login \
+            --username=${{ secrets.HEROKU_EMAIL }} \
+            --password-stdin registry.heroku.com
+
+      - name: 📦 Push Docker image to Heroku
+        run: |
+          docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
+
+      - name: 🚀 Release image on Heroku
+        run: |
+          heroku container:release web --app ${{ secrets.HEROKU_APP_NAME }}
