@@ -8,6 +8,7 @@ on:
 
 jobs:
   test:
+    name: ✅ Test Django App
     runs-on: ubuntu-latest
     environment: env
     services:
@@ -57,3 +58,40 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  build:
+    name: 🛠️ Build Docker Image
+    runs-on: ubuntu-latest
+    environment: env
+    needs: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in Heroku Container Registry
+        run: |
+          echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=${{ secrets.HEROKU_API_KEY }} --password-stdin registry.heroku.com
+
+      - name: Build Docker image
+        run: |
+          docker build -t registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web .
+
+      - name: Push Docker image to Heroku
+        run: |
+          docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
+
+  deploy:
+    name: 🚀 Deploy to Heroku
+    runs-on: ubuntu-latest
+    environment: env
+    needs: build
+
+    steps:
+      - name: Release Docker image to Heroku
+        run: |
+          echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=${{ secrets.HEROKU_EMAIL }} --password-stdin registry.heroku.com
+          docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
+          heroku container:release web --app ${{ secrets.HEROKU_APP_NAME }}
+
+        
