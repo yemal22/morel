@@ -65,6 +65,11 @@ jobs:
     environment: env
     # needs: test
 
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      ENV: production
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
