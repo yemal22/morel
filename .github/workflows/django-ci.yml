@@ -97,6 +97,9 @@ jobs:
             --username=${{ secrets.HEROKU_EMAIL }} \
             --password-stdin registry.heroku.com
 
+      - name: List Docker images
+        run: docker images
+
       - name: 📦 Push Docker image to Heroku
         run: |
           docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web
