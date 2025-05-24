@@ -58,6 +58,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+MIDDLEWARE.insert(0, 'morel.middleware.AdminIPRestrictionMiddleware')
+
 ROOT_URLCONF = 'morel.urls'
 
 TEMPLATES = [
