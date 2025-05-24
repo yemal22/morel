@@ -40,5 +40,5 @@ RUN python manage.py migrate --noinput
 EXPOSE 8000
 
 # Start the application (Heroku)
-CMD gunicorn morel.wsgi:application --bind 0.0.0.0:${PORT:-8000}
+CMD gunicorn morel.wsgi --bind 0.0.0.0:${PORT:-8000}
 
