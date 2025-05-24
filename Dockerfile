@@ -1,10 +1,15 @@
 # Base Python
 FROM python:3.11-slim
 
+# Arguments
+ARG DATABASE_URL
+ARG ENV
+
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV ENV=production
+ENV ENV=${ENV:-production}
+ENV DATABASE_URL=${DATABASE_URL}
 
 # Set the working directory
 WORKDIR /app
