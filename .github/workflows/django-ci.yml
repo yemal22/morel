@@ -94,13 +94,17 @@ jobs:
       - name: 🔄 Checkout code
         uses: actions/checkout@v3
 
+      - name: 🔧 Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
       - name: 🔐 Login to Heroku Container Registry
         run: |
           echo "${{ secrets.HEROKU_API_KEY }}" | docker login \
             --username=${{ secrets.HEROKU_EMAIL }} \
             --password-stdin registry.heroku.com
 
-      - name: 🟢 Release image on Heroku
+      - name: 🚀 Release image on Heroku
         run: |
           heroku container:release web --app ${{ secrets.HEROKU_APP_NAME }}
 
