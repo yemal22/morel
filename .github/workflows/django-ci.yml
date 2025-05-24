@@ -71,7 +71,7 @@ jobs:
 
       - name: Log in Heroku Container Registry
         run: |
-          echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=${{ secrets.HEROKU_API_KEY }} --password-stdin registry.heroku.com
+          echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=${{ secrets.HEROKU_EMAIL }} --password-stdin registry.heroku.com
 
       - name: Build Docker image
         run: |
