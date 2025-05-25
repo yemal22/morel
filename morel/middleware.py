@@ -6,7 +6,7 @@ class AdminIPRestrictionMiddleware:
     """
     def __init__(self, get_response):
         self.get_response = get_response
-        self.allowed_ips = ['41.138.90.66']
+        self.allowed_ips = ['156.0.214.6']
         
     def __call__(self, request):
         # Check if the request is for the admin interface
