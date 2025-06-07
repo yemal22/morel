@@ -32,10 +32,13 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'localhost',
+    'yemalin-7678b23ef2a0.herokuapp.com',
+]
 
 CRSF_TRUSTED_ORIGINS = [
-    "https://yemalin-7678b23ef2a0.herokuapp.com"
+    "https://yemalin-7678b23ef2a0.herokuapp.com",
 ]
 
 
