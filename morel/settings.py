@@ -34,6 +34,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CRSF_TRUSTED_ORIGINS = [
+    "https://yemalin-7678b23ef2a0.herokuapp.com"
+]
+
 
 # Application definition
 
