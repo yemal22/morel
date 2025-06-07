@@ -1,0 +1,95 @@
+\documentclass[a4paper,9pt]{extarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{letterpaper, margin=0.75in}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+
+\setlist{noitemsep}
+\titleformat{\section}{\large\bfseries}{}{1em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{\baselineskip}{\baselineskip}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\fancyhead[L]{\textit{Y\'emalin Morel KPAVODE}}
+\fancyhead[R]{\textit{March 2025}}
+\thispagestyle{empty}
+
+\begin{document}
+
+\begin{flushleft}
+\textbf{\LARGE Y\'emalin Morel KPAVODE}\\[2pt]
+Junior Data Scientist \textendash{} Passionn\'e d\textquoteright{}IA appliqu\'ee au d\'eveloppement, Abomey-Calavi, B\'enin\\
+\href{mailto:yemalem03@gmail.com}{yemalem03@gmail.com} | \href{tel:+22995754157}{+229 95 75 41 57} | \href{https://www.linkedin.com/in/morel-kpavode}{linkedin.com/in/morel-kpavode} | \href{https://github.com/yemal22}{github.com/yemal22}
+\end{flushleft}
+
+\section*{R\'ESUM\'E}
+\noindent
+\textit{\small\textbf{\textsf{\`{E}tudiant d\'etermin\'e avec une double formation en math\'ematiques fondamentales et technologies de l'information, je me sp\'ecialise en intelligence artificielle et Big Data avec pour objectif de concevoir des solutions technologiques adapt\'ees aux d\'e\'fis socio-\'economiques du B\'enin. Mes projets s\textquoteright{}inscrivent dans les Objectifs de D\'eveloppement Durable, notamment dans la sant\'e publique, la s\'ecurit\'e alimentaire et l\'innovation num\'erique.}}}
+
+\section*{DOMAINES DE RECHERCHE}
+Computer Vision, Deep Learning, Big Data, Intelligence Artificielle appliqu\'ee au d\'eveloppement, NLP, IA pour les cultures africaines
+
+\section*{COMP\'ETENCES}
+\begin{itemize}
+    \item \textbf{IA et Vision par ordinateur :} TensorFlow, PyTorch, OpenCV, IA G\'en\'erative, CNN, Transformer, Hugging Face
+    \item \textbf{Science des donn\'ees :} Python, Scikit-learn, Pandas, SQL, Matplotlib, Seaborn, R
+    \item \textbf{D\'eveloppement Web & DevOps :} Django, Flask, REST API, Docker, Kubernetes, Git, Linux
+    \item \textbf{M\'ethodologie :} TDD, M\'ethodes Agiles (Scrum, Kanban)
+\end{itemize}
+
+\section*{LANGUES}
+\begin{itemize}
+    \item Fran\c{c}ais : Natif
+    \item Anglais : Interm\'ediaire (niveau B1)
+\end{itemize}
+
+\section*{\'EDUCATION}
+{% for edu in educations %}
+\noindent
+\textbf{{ edu.institution }}, {{ edu.location }} \hfill {{ edu.start_date|date:"F Y" }} -- {{ edu.end_date|date:"F Y" }}\\
+{{ edu.degree }}\\
+{% endfor %}
+
+\section*{EXP\'ERIENCE PROFESSIONNELLE}
+{% for exp in exp_pro %}
+\textbf{{ exp.title }} -- {{ exp.company }} \hfill {{ exp.location }}\\
+\textit{{ exp.role_type }} \hfill {{ exp.start_date|date:"F Y" }} -- {{ exp.end_date|date:"F Y" }}
+\begin{itemize}
+    \item {{ exp.description|striptags|linebreaksbr|safe }}
+\end{itemize}
+{% endfor %}
+
+\section*{EXP\'ERIENCE ACAD\'EMIQUE}
+{% for exp in exp_acad %}
+\textbf{{ exp.title }} -- {{ exp.company }} \hfill {{ exp.location }}\\
+\textit{{ exp.role_type }} \hfill {{ exp.start_date|date:"F Y" }} -- {{ exp.end_date|date:"F Y" }}
+\begin{itemize}
+    \item {{ exp.description|striptags|linebreaksbr|safe }}
+\end{itemize}
+{% endfor %}
+
+
+\section*{PROJETS DE RECHERCHE}
+{% for p in projects %}
+\textbf{{ p.title }} \hfill {{ p.location }}\\
+\textit{{ p.context }} \hfill {{ p.start_date|date:"F Y" }} -- {% if p.end_date %}{{ p.end_date|date:"F Y" }}{% else %}Pr\'esent{% endif %}
+\begin{itemize}
+    \item {{ p.description|striptags|linebreaksbr|safe }}
+    {% if p.technologies.exists %}
+    \item \textbf{Technologies :} {{ p.technologies.all|join:", " }}
+    {% endif %}
+{% endfor %}
+\end{itemize}
+
+\section*{CERTIFICATIONS}
+{% for c in certifications %}
+\textbf{{ c.name }} \hfill {{ c.provider }} \hfill {{ c.date_issued|date:"F Y" }}\\
+{% endfor %}
+
+\end{document}

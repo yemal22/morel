@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block title %}Projects | Yémalin Morel{% endblock %}
+
+{% block content %}
+<div class="section-header">
+  <h2 class="section-title">🛠️ Projects</h2>
+  <p class="section-subtitle">
+      Here are some of the projects I've worked on, showcasing my skills in data science, machine learning, and
+      software development.
+  </p>
+</div>
+
+
+<div class="project-grid">
+  {% for project in projects %}
+  <div class="project-card fade-in">
+    {% if project.media %}
+        {% if project.is_video %}
+            <video src="{{ project.media.url }}" class="project-image" controls></video>
+        {% else %}
+            <img src="{{ project.media.url }}" alt="{{ project.title }}" class="project-image">
+        {% endif %}
+    {% else %}
+        <div class="project-image svg-placeholder">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" fill="#f0f0f0" />
+                <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle"
+                    fill="#333" font-size="32" font-family="monospace" font-weight="bold">
+                    {{ project.title|slice:":1"|upper }}
+                </text>
+            </svg>
+        </div>
+    {% endif %}
+    <div class="project-content">
+        {% with tag=project.tags.first %}
+    {% if tag.name == "AI" %}
+        <div class="project-icon" style="background-color: #cce5ff;">
+        <i class="fas fa-brain"></i>
+        </div>
+    {% elif tag.name == "Web" %}
+        <div class="project-icon" style="background-color: #e6f2ff;">
+        <i class="fas fa-globe"></i>
+        </div>
+    {% elif tag.name == "Vision" %}
+        <div class="project-icon" style="background-color: #f9e0ff;">
+        <i class="fas fa-eye"></i>
+        </div>
+    {% elif tag.name == "Mobile" %}
+        <div class="project-icon" style="background-color: #fef0d1;">
+        <i class="fas fa-mobile-alt"></i>
+        </div>
+    {% elif tag.name == "Data" %}
+        <div class="project-icon" style="background-color: #dff0d8;">
+        <i class="fas fa-database"></i>
+        </div>
+    {% endif %}
+    {% endwith %}
+      <h3 class="project-title">{{ project.title }}</h3>
+      <p class="project-context">{{ project.context }}</p>
+      <div class="project-tags">
+        {% for tag in project.tags.all %}
+        <span class="tag">{{ tag.name }}</span>
+        {% endfor %}
+      </div>
+      <button class="modal-btn" data-project="{{ project.id }}">Learn more</button>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+<!-- <div class="project-grid">
+    {% for project in projects %}
+    <div class="project-card fade-in">
+        {% if project.media %}
+            {% if project.is_video %}
+                <video src="{{ project.media.url }}" class="project-image" controls></video>
+            {% else %}
+                <img src="{{ project.media.url }}" alt="{{ project.title }}" class="project-image">
+            {% endif %}
+        {% endif %}
+
+        <div class="project-content">
+            <h3 class="project-title">{{ project.title }}</h3>
+            <p class="project-description">{{ project.context }}</p>
+            <button class="modal-btn" data-project="{{ project.id }}">Learn more</button>
+        </div>
+    </div>
+    {% endfor %}
+</div> -->
+
+<!-- MODAL (global) -->
+<div class="modal" id="project-modal">
+    <div class="modal-content" id="modal-body">
+        <span class="modal-close" id="modal-close">&times;</span>
+        <!-- Content loaded via JS -->
+    </div>
+</div>
+
+
+<script>
+document.querySelectorAll('.modal-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+        const id = btn.getAttribute('data-project');
+        const response = await fetch(`/project/${id}/json/`);
+        const data = await response.json();
+
+        const modal = document.getElementById("project-modal");
+        const modalBody = document.getElementById("modal-body");
+
+        modalBody.innerHTML = `
+            <span class="modal-close" id="modal-close">&times;</span>
+            <h2>${data.title}</h2>
+            <p><strong>Context:</strong> ${data.context}</p>
+            <p><strong>Location:</strong> ${data.location}</p>
+            <p><strong>Dates:</strong> ${data.start_date} → ${data.end_date || "Present"}</p>
+            <p>${data.description}</p>
+            <p><strong>Technologies:</strong> ${data.technologies.join(', ')}</p>
+            <div>
+                ${data.tags.map(tag => `<span class="tag">${tag}</span>`).join(' ')}
+            </div>
+            ${data.github_link ? `<p><a href="${data.github_link}" target="_blank">🔗 GitHub</a></p>` : ''}
+            ${data.media_url ? `<div style="margin-top:1rem;">${data.media_html}</div>` : ''}
+        `;
+
+        modal.classList.add('show');
+
+        document.getElementById("modal-close").onclick = () => {
+            modal.classList.remove('show');
+        };
+    });
+});
+</script>
+
+    
+{% endblock %}

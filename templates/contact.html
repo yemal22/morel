@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Contact | Yémalin{% endblock %}
+
+{% block content %}
+<section class="contact-section">
+  <div class="contact-grid">
+    
+    <!-- Bloc liens -->
+    <div class="contact-links">
+      <h2 class="contact-title">📬 Contactez-moi</h2>
+      <p class="contact-subtitle">Vous pouvez me retrouver sur ces plateformes :</p>
+
+      <ul class="contact-list">
+        {% for c in contacts %}
+        <li>
+          <i class="{{ c.icon }}"></i>
+          {% if c.type == 'email' %}
+            <a href="mailto:{{ c.value }}">{{ c.value }}</a>
+          {% elif c.type == 'phone' %}
+            <a href="tel:{{ c.value }}">{{ c.value }}</a>
+          {% elif c.type == "whatsapp" %}
+            <div class="whatsapp-qr">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data={{ c.value }}" alt="QR WhatsApp">
+              <p>Scan to chat via WhatsApp</p>
+            </div>
+          {% else %}
+            <a href="{{ c.value }}" target="_blank">{{ c.type|title }}</a>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Formulaire -->
+    <div class="contact-form-block">
+      <h2 class="contact-title">✉️ Envoyer un message</h2>
+      <form method="post" class="contact-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Envoyer</button>
+      </form>
+
+      {% if messages %}
+        {% for message in messages %}
+        <div class="flash">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+{% endblock %}

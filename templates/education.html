@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Education | Yémalin{% endblock %}
+
+{% block content %}
+
+<div class="section-header">
+  <h2 class="section-title">🎓 Education</h2>
+  <p class="section-subtitle">A summary of my academic background and qualifications.</p>
+</div>
+
+<div class="edu-accordion">
+  
+  {% for edu in education %}
+  <div class="edu-item">
+    <button class="edu-toggle">
+      <div>
+        {% if edu.logo %}
+          <img src="{{ edu.logo.url }}" alt="{{ edu.institution }}" class="edu-logo">
+        {% endif %}
+        <strong>{{ edu.degree }}</strong> — {{ edu.institution }}
+        <div class="edu-date">{{ edu.start_date|date:"Y" }} — {{ edu.end_date|date:"Y" }}</div>
+      </div>
+      <span class="arrow">+</span>
+    </button>
+    <div class="edu-content">
+      <ul class="edu-meta">
+        <li><strong>📍 Location:</strong> {{ edu.location }}</li>
+        <li><strong>📅 Period:</strong> {{ edu.start_date|date:"F Y" }} – {{ edu.end_date|date:"F Y" }}</li>
+        {% if edu.mention %}
+          <li><strong>🏅 Mention:</strong> {{ edu.mention }}</li>
+        {% endif %}
+      </ul>
+
+      <div class="edu-description">
+        <h4>📝 Description :</h4>
+        <p>{{ edu.description|linebreaks }}</p>
+      </div>
+      {% if request.user.is_authenticated and request.user.is_staff and edu.diploma %}
+        <a href="{{ edu.diploma.url }}" class="edu-download" download>
+          📄 Télécharger le diplôme
+        </a>
+      {% endif %}
+    </div>
+  </div>  
+  {% endfor %}
+    
+</div>
+
+<script>
+  document.querySelectorAll('.edu-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const content = btn.nextElementSibling;
+      content.classList.toggle('open');
+      btn.classList.toggle('active');
+
+      const arrow = btn.querySelector('.arrow');
+      arrow.textContent = content.classList.contains('open') ? '−' : '+';
+      arrow.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+    })
+  })
+</script>
+
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import RegexValidator, URLValidator, validate_email
+from django.core.validators import RegexValidator, URLValidator, validate_email, FileExtensionValidator
 from django.core.exceptions import ValidationError
 
 """
@@ -102,6 +102,12 @@ class Skill(models.Model):
     """
     name = models.CharField(max_length=100)
     category = models.ForeignKey(SkillCategory, on_delete=models.CASCADE)
+    icon = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="Class Font Awesome (ex: 'fab fa-python', 'fas fa-database')"
+    )
+
 
     def __str__(self):
         return self.name
@@ -119,6 +125,28 @@ class LanguageProficiency(models.Model):
     class Meta:
         verbose_name = "Language Proficiency"
         verbose_name_plural = "Language Proficiencies"
+        
+class Transcript(models.Model):
+    """
+    Academic transcript PDF files optionally linked to an education institution or diploma.
+    """
+    label = models.CharField(max_length=255, help_text="e.g. 'Semestre 1', 'Final transcript'")
+    file = models.FileField(
+        upload_to='medias/transcripts/',
+        validators=[FileExtensionValidator(['pdf'])],
+        help_text="Transcript file in PDF"
+    )
+    education = models.ForeignKey(
+        'Education',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='transcripts'
+    )
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.label
 
 class Education(models.Model):
     """
@@ -130,6 +158,21 @@ class Education(models.Model):
     end_date = models.DateField()
     location = models.CharField(max_length=255)
     description = models.TextField()
+    
+    logo = models.ImageField(
+        upload_to='medias/logos',
+        blank=True,
+        null=True,
+        help_text="Logo of the institution"
+    )
+    
+    diploma = models.FileField(
+        upload_to='medias/diplomas',
+        blank=True,
+        null=True,
+        validators=[FileExtensionValidator(['pdf'])],
+        help_text="Diploma document (PDF)"
+    )
 
     def __str__(self):
         return f'{self.degree} at {self.institution}'
@@ -163,6 +206,12 @@ class Project(models.Model):
     github_link = models.URLField(blank=True)
     technologies = models.ManyToManyField(Skill)
     tags = models.ManyToManyField(Tag)
+    media = models.FileField(
+        upload_to='projects',
+        null=True,
+        blank=True,
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov'])]
+    )
 
     def __str__(self):
         return self.title
@@ -178,6 +227,14 @@ class Certification(models.Model):
     link = models.URLField()
     tags = models.ManyToManyField(Tag)
     image = models.ImageField(upload_to='medias/certifications', null=True, blank=True)
+    
+    pdf = models.FileField(
+        upload_to='medias/certifications/',
+        null=True, blank=True,
+        validators=[FileExtensionValidator(['pdf'])]
+    )
+
+    is_primary = models.BooleanField(default=False, help_text="Mark as main certification")
 
 class ContactInfo(models.Model):
     """

@@ -43,12 +43,12 @@
         <!-- Nav -->
         <nav class="main-nav" id="main-nav">
             <a href="{% url 'home' %}"><i class="fas fa-home icon"></i> Home</a>
-            <a href="#"><i class="fas fa-code icon"></i> Projects</a>
-            <a href="#"><i class="fas fa-briefcase icon"></i> Experience</a>
-            <a href="#"><i class="fas fa-tools icon"></i> Skills</a>
-            <a href="#"><i class="fas fa-graduation-cap icon"></i> Education</a>
-            <a href="#"><i class="fas fa-certificate icon"></i> Certifications</a>
-            <a href="#"><i class="fas fa-envelope icon"></i> Contact</a>
+            <a href="{% url 'project-list' %}"><i class="fas fa-code icon"></i> Projects</a>
+            <a href="{% url 'experience' %}"><i class="fas fa-briefcase icon"></i> Experience</a>
+            <a href="{% url 'skills' %}"><i class="fas fa-tools icon"></i> Skills</a>
+            <a href="{% url 'education' %}"><i class="fas fa-graduation-cap icon"></i> Education</a>
+            <a href="{% url 'certifications' %}"><i class="fas fa-certificate icon"></i> Certifications</a>
+            <a href="{% url 'contact' %}"><i class="fas fa-envelope icon"></i> Contact</a>
         </nav>
         <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
             <i class="fas fa-moon"></i>

@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %}Certifications | Yémalin{% endblock %}
+
+{% block content %}
+<div class="section-header">
+  <h2 class="section-title">📜 Certifications</h2>
+  <p class="section-subtitle">A selection of verified certifications from trusted providers in Data Science, AI and Software Engineering.</p>
+</div>
+
+<div class="cert-marquee">
+  <div class="cert-track">
+    {% for cert in primary %}
+      <div class="cert-card" onclick="openModal({{ cert.id }})">
+        {% if cert.image %}
+          <img src="{{ cert.image.url }}" alt="{{ cert.name }}">
+        {% else %}
+          <div class="cert-placeholder">{{ cert.name|slice:":2" }}</div>
+        {% endif %}
+        <div class="cert-meta">
+          <strong>{{ cert.name }}</strong><br>
+          <small>{{ cert.provider }} – {{ cert.date_issued|date:"F Y" }}</small>
+        </div>
+      </div>
+    {% endfor %}
+
+    {% for cert in primary %}
+      <div class="cert-card" onclick="openModal({{ cert.id }})">
+        {% if cert.image %}
+          <img src="{{ cert.image.url }}" alt="{{ cert.name }}">
+        {% else %}
+          <div class="cert-placeholder">{{ cert.name|slice:":2" }}</div>
+        {% endif %}
+        <div class="cert-meta">
+          <strong>{{ cert.name }}</strong><br>
+          <small>{{ cert.provider }} – {{ cert.date_issued|date:"F Y" }}</small>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="cert-marquee">
+  <div class="cert-track">
+    {% for cert in secondary %}
+      <div class="cert-card" onclick="openModal({{ cert.id }})">
+        {% if cert.image %}
+          <img src="{{ cert.image.url }}" alt="{{ cert.name }}">
+        {% else %}
+          <div class="cert-placeholder">{{ cert.name|slice:":2" }}</div>
+        {% endif %}
+        <div class="cert-meta">
+          <strong>{{ cert.name }}</strong><br>
+          <small>{{ cert.provider }} – {{ cert.date_issued|date:"F Y" }}</small>
+        </div>
+      </div>
+    {% endfor %}
+
+    {% for cert in primary %}
+      <div class="cert-card" onclick="openModal({{ cert.id }})">
+        {% if cert.image %}
+          <img src="{{ cert.image.url }}" alt="{{ cert.name }}">
+        {% else %}
+          <div class="cert-placeholder">{{ cert.name|slice:":2" }}</div>
+        {% endif %}
+        <div class="cert-meta">
+          <strong>{{ cert.name }}</strong><br>
+          <small>{{ cert.provider }} – {{ cert.date_issued|date:"F Y" }}</small>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+<!-- Modal structure -->
+<div id="cert-modal" class="modal-overlay" onclick="closeModal(event)">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeModal()">×</span>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+
+{{ all_certs|json_script:"certs-data" }}
+
+<script>
+
+  const certifications = JSON.parse(document.getElementById("certs-data").textContent);
+
+  function openModal(id) {
+    const cert = certifications.find(c => c.id === id);
+    const modal = document.getElementById('cert-modal');
+    const body = document.getElementById('modal-body');
+
+    let media = '';
+    if (cert.pdf) {
+      media = `<embed src="${cert.pdf}" type="application/pdf" width="100%" height="400px">`;
+    } else if (cert.image) {
+      media = `<img src="${cert.image}" style="max-width:100%; max-height:300px;" />`;
+    }
+
+    body.innerHTML = `
+      <h2>${cert.name}</h2>
+      <p><strong>Provider:</strong> ${cert.provider}</p>
+      <p><strong>Date issued:</strong> ${cert.date_issued}</p>
+      <p>${cert.description}</p>
+      ${media}
+      <p><a href="${cert.link}" target="_blank">🔗 View certificate</a></p>
+    `;
+    modal.style.display = 'flex';
+  }
+
+  function closeModal(e) {
+    if (e?.target?.id !== 'cert-modal' && e?.target?.className !== 'modal-close') return;
+    document.getElementById('cert-modal').style.display = 'none';
+  }
+  </script>
+
+{% endblock %}
