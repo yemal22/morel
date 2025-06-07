@@ -39,7 +39,15 @@ ALLOWED_HOSTS = [
 
 CRSF_TRUSTED_ORIGINS = [
     "https://yemalin-7678b23ef2a0.herokuapp.com",
+    "https://*.herokuapp.com",
+    "http://localhost:8000",
 ]
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Application definition
