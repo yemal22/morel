@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator, URLValidator, validate_email, FileExtensionValidator
 from django.core.exceptions import ValidationError
+from cloudinary_storage.storage import MediaCloudinaryStorage
 
 """
 Django Models for Yémalin Morel KPAVODE's Portfolio Website
@@ -134,6 +135,7 @@ class Transcript(models.Model):
     file = models.FileField(
         upload_to='transcripts/',
         validators=[FileExtensionValidator(['pdf'])],
+        storage=MediaCloudinaryStorage(),
         help_text="Transcript file in PDF"
     )
     education = models.ForeignKey(
@@ -160,14 +162,16 @@ class Education(models.Model):
     description = models.TextField()
     
     logo = models.ImageField(
-        upload_to='logos',
+        upload_to='logos/',
+        storage=MediaCloudinaryStorage(),
         blank=True,
         null=True,
         help_text="Logo of the institution"
     )
     
     diploma = models.FileField(
-        upload_to='diplomas',
+        upload_to='diplomas/',
+        storage=MediaCloudinaryStorage(),
         blank=True,
         null=True,
         validators=[FileExtensionValidator(['pdf'])],
@@ -207,7 +211,8 @@ class Project(models.Model):
     technologies = models.ManyToManyField(Skill)
     tags = models.ManyToManyField(Tag)
     media = models.FileField(
-        upload_to='projects',
+        upload_to='projects/',
+        storage=MediaCloudinaryStorage(),
         null=True,
         blank=True,
         validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov'])]
@@ -226,10 +231,11 @@ class Certification(models.Model):
     description = models.TextField()
     link = models.URLField()
     tags = models.ManyToManyField(Tag)
-    image = models.ImageField(upload_to='certifications', null=True, blank=True)
+    image = models.ImageField(upload_to='certifications/', storage=MediaCloudinaryStorage(), null=True, blank=True)
     
     pdf = models.FileField(
         upload_to='certifications/',
+        storage=MediaCloudinaryStorage(),
         null=True, blank=True,
         validators=[FileExtensionValidator(['pdf'])]
     )
