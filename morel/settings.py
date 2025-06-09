@@ -35,7 +35,8 @@ DEBUG = ENV == 'development'
 ALLOWED_HOSTS = [
     'localhost',
     'yemalin-7678b23ef2a0.herokuapp.com',
-    'morelyemalin.me'
+    'morelyemalin.me',
+    'www.morelyemalin.me',
 ]
 
 CRSF_TRUSTED_ORIGINS = [
