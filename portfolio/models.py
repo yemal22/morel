@@ -132,7 +132,7 @@ class Transcript(models.Model):
     """
     label = models.CharField(max_length=255, help_text="e.g. 'Semestre 1', 'Final transcript'")
     file = models.FileField(
-        upload_to='medias/transcripts/',
+        upload_to='transcripts/',
         validators=[FileExtensionValidator(['pdf'])],
         help_text="Transcript file in PDF"
     )
@@ -160,14 +160,14 @@ class Education(models.Model):
     description = models.TextField()
     
     logo = models.ImageField(
-        upload_to='medias/logos',
+        upload_to='logos',
         blank=True,
         null=True,
         help_text="Logo of the institution"
     )
     
     diploma = models.FileField(
-        upload_to='medias/diplomas',
+        upload_to='diplomas',
         blank=True,
         null=True,
         validators=[FileExtensionValidator(['pdf'])],
@@ -226,10 +226,10 @@ class Certification(models.Model):
     description = models.TextField()
     link = models.URLField()
     tags = models.ManyToManyField(Tag)
-    image = models.ImageField(upload_to='medias/certifications', null=True, blank=True)
+    image = models.ImageField(upload_to='certifications', null=True, blank=True)
     
     pdf = models.FileField(
-        upload_to='medias/certifications/',
+        upload_to='certifications/',
         null=True, blank=True,
         validators=[FileExtensionValidator(['pdf'])]
     )
