@@ -35,12 +35,17 @@ DEBUG = ENV == 'development'
 ALLOWED_HOSTS = [
     'localhost',
     'yemalin-7678b23ef2a0.herokuapp.com',
+    'morelyemalin.me'
 ]
 
 CRSF_TRUSTED_ORIGINS = [
     "https://yemalin-7678b23ef2a0.herokuapp.com",
     "https://*.herokuapp.com",
     "http://localhost:8000",
+    "https://morelyemalin.me",
+    "https://www.morelyemalin.me",
+    "http://morelyemalin.me",
+    "http://www.morelyemalin.me",
 ]
 
 CSRF_COOKIE_SECURE = True
