@@ -112,7 +112,7 @@ def education(request):
     return render(request, 'education.html', {'education': education})
 
 def experience_list(request):
-    experiences = Experience.objects.all()
+    experiences = Experience.objects.all().order_by('-start_date')
     return render(request, 'experiences.html', {'experiences': experiences})
 
 def skill_view(request):
